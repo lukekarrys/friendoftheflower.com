@@ -1,0 +1,18 @@
+{
+  "name": "friendoftheflower.com",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "http-server ./dist",
+    "dev": "concurrently \"npm:start\" \"npm:dev:css\"",
+    "dev:css": "tailwindcss -i ./src/main.css -o ./dist/main.css --watch",
+    "build": "concurrently \"npm:build:css\"",
+    "build:css": "tailwindcss -i ./src/main.css -o ./dist/main.css --minify"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.3.6"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "http-server": "^14.1.1"
+  }
+}
