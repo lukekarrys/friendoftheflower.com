@@ -2,17 +2,23 @@
   "name": "friendoftheflower.com",
   "version": "1.0.0",
   "scripts": {
-    "start": "http-server ./dist",
-    "dev": "concurrently \"npm:start\" \"npm:dev:css\"",
-    "dev:css": "tailwindcss -i ./src/main.css -o ./dist/main.css --watch",
+    "css": "tailwindcss -i ./src/main.css -o ./dist/main.css",
+    "server": "http-server ./dist -c-1",
+    "copy": "chokidar \"public/\" -c \"cp public/* dist/\"",
+    "dev": "concurrently \"npm:server\" \"npm:dev:copy\" \"npm:dev:css\"",
+    "dev:css": "npm run css -- --watch",
+    "build:css": "npm run css -- --minify",
     "build": "concurrently \"npm:build:css\"",
-    "build:css": "tailwindcss -i ./src/main.css -o ./dist/main.css --minify"
+    "build:other": "cp ",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "tailwindcss": "^3.3.6"
   },
   "devDependencies": {
+    "chokidar-cli": "^3.0.0",
     "concurrently": "^8.2.2",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "prettier": "^3.1.0"
   }
 }
