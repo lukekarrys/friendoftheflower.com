@@ -4,12 +4,13 @@
   "scripts": {
     "css": "tailwindcss -i ./src/main.css -o ./dist/main.css",
     "server": "http-server ./dist -c-1",
-    "copy": "chokidar \"public/\" -c \"cp public/* dist/\"",
-    "dev": "concurrently \"npm:server\" \"npm:dev:copy\" \"npm:dev:css\"",
+    "public": "cp public/* dist/",
+    "dist": "rm -rf dist/ && mkdir -p dist/",
     "dev:css": "npm run css -- --watch",
+    "dev:public": "chokidar \"public/\" -c \"npm run public\"",
+    "dev": "npm run dist && concurrently \"npm:server\" \"npm:public\" \"npm:dev:public\" \"npm:dev:css\"",
     "build:css": "npm run css -- --minify",
-    "build": "concurrently \"npm:build:css\"",
-    "build:other": "cp ",
+    "build": "npm run dist && concurrently \"npm:build:css\" \"npm:public\"",
     "format": "prettier --write ."
   },
   "dependencies": {
