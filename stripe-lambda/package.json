@@ -1,0 +1,11 @@
+{
+  "name": "friendoftheflower.com-stripe-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "stripe": "^14.8.0"
+  },
+  "scripts": {
+    "build": "zip -r function.zip * --exclude \"test/*\" \"package.json\" \"package-lock.json\" \"README.md\""
+  }
+}

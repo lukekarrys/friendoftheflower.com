@@ -3,12 +3,9 @@ name: Deploy
 on:
   push:
     branches: ["main"]
+    paths:
+      - "www/**"
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: "pages"
@@ -16,18 +13,22 @@ concurrency:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v4
       - uses: actions/setup-node@v4
-      - run: npm ci --ignore-scripts
-      - run: npm run build
+      - run: npm ci -w www --ignore-scripts
+      - run: npm run build -w www
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: "dist/"
+          path: "www/dist/"
       - uses: actions/deploy-pages@v3
         id: deployment

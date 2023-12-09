@@ -1,0 +1,25 @@
+{
+  "name": "friendoftheflower.com-www",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "css": "tailwindcss -i ./src/main.css -o ./dist/main.css",
+    "server": "http-server ./dist -c-1",
+    "public": "cp public/* dist/",
+    "dist": "rm -rf dist/ && mkdir -p dist/",
+    "dev:css": "npm run css -- --watch",
+    "dev:public": "chokidar \"public/\" -c \"npm run public\"",
+    "dev": "npm run dist && concurrently \"npm:server\" \"npm:public\" \"npm:dev:public\" \"npm:dev:css\"",
+    "build:css": "npm run css -- --minify",
+    "build": "npm run dist && concurrently \"npm:build:css\" \"npm:public\""
+  },
+  "dependencies": {
+    "tailwindcss": "^3.3.6"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.2.2",
+    "http-server": "^14.1.1",
+    "prettier": "^3.1.0"
+  }
+}

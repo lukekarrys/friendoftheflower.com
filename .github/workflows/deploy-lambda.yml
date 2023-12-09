@@ -1,0 +1,33 @@
+name: Deploy Lambda
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "stripe-lambda/**"
+  workflow_dispatch:
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pull-requests: write
+      deployments: write
+      contents: write
+      checks: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::372019116310:role/github-actions-lambda-role
+          aws-region: us-east-1
+      - run: npm ci -w stripe-lambda --ignore-scripts
+      - run: npm run build -w stripe-lambda
+      - run: aws lambda update-function-code --function-name "stripe-intent-staging" --zip-file fileb://stripe-lambda/function.zip
