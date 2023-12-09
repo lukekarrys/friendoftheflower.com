@@ -6,6 +6,6 @@
     "stripe": "^14.8.0"
   },
   "scripts": {
-    "zip": "zip -r function.zip * --exclude \"test/*\" \"package.json\" \"package-lock.json\" \"README.md\""
+    "zip": "zip -r function.zip * --exclude \"package.json\""
   }
 }
