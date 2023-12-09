@@ -29,5 +29,5 @@ jobs:
           role-to-assume: arn:aws:iam::372019116310:role/github-actions-lambda-role
           aws-region: us-east-1
       - run: npm ci -w stripe-lambda --ignore-scripts
-      - run: npm run build -w stripe-lambda
+      - run: npm run zip -w stripe-lambda
       - run: aws lambda update-function-code --function-name "stripe-intent-staging" --zip-file fileb://stripe-lambda/function.zip
