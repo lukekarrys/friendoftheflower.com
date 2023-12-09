@@ -26,7 +26,7 @@ jobs:
       - uses: actions/setup-node@v4
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::372019116310:role/github-actions-lambda-role
+          role-to-assume: arn:aws:iam::372019116310:role/github-actions-friendoftheflower-lambda
           aws-region: us-west-1
       - run: npm ci -w stripe-lambda --ignore-scripts
       - run: npm run zip -w stripe-lambda
